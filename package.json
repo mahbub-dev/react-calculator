@@ -1,6 +1,6 @@
 {
-	"homepage": "",
 	"name": "calculator",
+	"homepage": "https://github.com/mahbub-dev/react-calculator.git",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
