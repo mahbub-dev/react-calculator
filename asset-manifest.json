@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mahbub-dev/react-calculator.git/static/css/main.d97f61a3.css",
+    "main.js": "/mahbub-dev/react-calculator.git/static/js/main.53451ce0.js",
+    "static/js/787.a174f9e5.chunk.js": "/mahbub-dev/react-calculator.git/static/js/787.a174f9e5.chunk.js",
+    "index.html": "/mahbub-dev/react-calculator.git/index.html",
+    "main.d97f61a3.css.map": "/mahbub-dev/react-calculator.git/static/css/main.d97f61a3.css.map",
+    "main.53451ce0.js.map": "/mahbub-dev/react-calculator.git/static/js/main.53451ce0.js.map",
+    "787.a174f9e5.chunk.js.map": "/mahbub-dev/react-calculator.git/static/js/787.a174f9e5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d97f61a3.css",
+    "static/js/main.53451ce0.js"
+  ]
+}
