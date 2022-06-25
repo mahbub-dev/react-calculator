@@ -1,37 +1,86 @@
 /* eslint-disable no-eval */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./calculator.css";
 
 function Calculator() {
-	const [result, setResult] = useState("");
+	const [oprationCount, setOparationCount] = useState(0);
+	const [result, setResult] = useState([]);
+	const [oparend, setOparend] = useState("");
+	const [resultIndex, setResultIndex] = useState(result.length);
+	const [render, setRender] = useState(false);
+	const Bismillah = new Audio(
+		"https://www.truemuslims.net/Quran/Bangla/001.mp3"
+	);
+
+	//   // variable to play audio in loop
+	//   const [playInLoop, setPlayInLoop] = useState(false);
+
+	//   // load audio file on component load
+	//   useEffect(() => {
+	//    Bismillah.load();
+	//   }, [])
+
+	//   // set the loop of audio tune
+	//   useEffect(() => {
+	//     Bismillah.loop = playInLoop;
+	//   }, [playInLoop])
+	useEffect(() => {
+		setResult([...result, oparend.split("/")]);
+	}, [oprationCount]);
 	const typeHandler = (num) => {
-		setResult(result.concat(num));
+		setOparend(oparend.concat(num));
+		setRender(false);
+		Bismillah.play();
 	};
 	const opartorHandler = (optr) => {
-		setResult(result.concat(optr));
+		setOparend(oparend.concat(optr));
+		setRender(false);
+	};
+	const storedResult = (direction) => {
+		if (direction === "l") {
+			if (resultIndex > 1) {
+				setResultIndex((prev) => prev - 1);
+			}
+		}
+		if (direction === "r") {
+			if (resultIndex < result.length - 1) {
+				setResultIndex((prev) => prev + 1);
+			}
+		}
+		setRender(true);
 	};
 	const handleSubmit = () => {
+		setOparationCount((prev) => prev + 1);
+		setResultIndex(result.length);
+
 		try {
-			setResult(eval(result).toString());
+			setOparend(eval(oparend).toString());
 		} catch (e) {
 			console.log(e);
-			setResult("invalid format,click on C button");
+			setOparend("invalid format,click on C button");
 		}
 	};
 	const backSpace = () => {
-		setResult(result.slice(0, -1));
+		setOparend(oparend.slice(0, -1));
 	};
 	const clear = () => {
-		setResult("");
+		setOparend("");
+		setResultIndex(0);
+		setResult([""]);
 	};
+	console.log(result);
 	return (
 		<div className="container">
 			<div className="inner-container">
 				<div className="display">
 					<div className="data">
-						<div className="type-data"></div>
-						<div className="result">{result}</div>
+						<div className="counter">{resultIndex}</div>
+						{render ? (
+							<div className="result">{result[resultIndex]}</div>
+						) : (
+							<div className="result">{oparend}</div>
+						)}
 					</div>
 				</div>
 				<div className="buttons">
@@ -40,22 +89,25 @@ function Calculator() {
 							<span className="btn" onClick={clear}>
 								C
 							</span>
-							<span className="btn" onClick={backSpace}>
+							<span
+								className="btn"
+								onClick={() => {
+									storedResult("l");
+								}}
+							>
 								{" "}
 								&#8592;
 							</span>
 							<span
 								className="btn"
-								onClick={() => opartorHandler(" % ")}
+								onClick={() => {
+									storedResult("r");
+								}}
 							>
-								%
+								&#8594;
 							</span>
-							<span
-								className="btn"
-								value="/"
-								onClick={() => opartorHandler(" / ")}
-							>
-								/
+							<span className="btn" onClick={backSpace}>
+								x
 							</span>
 						</div>
 						<div className="row">
@@ -81,9 +133,9 @@ function Calculator() {
 							</span>
 							<span
 								className="btn"
-								onClick={() => opartorHandler(" * ")}
+								onClick={() => opartorHandler(" / ")}
 							>
-								*
+								/
 							</span>
 						</div>
 						<div className="row">
@@ -107,9 +159,9 @@ function Calculator() {
 							</span>
 							<span
 								className="btn"
-								onClick={() => opartorHandler(" - ")}
+								onClick={() => opartorHandler(" * ")}
 							>
-								-
+								*
 							</span>
 						</div>
 						<div className="row">
@@ -133,9 +185,9 @@ function Calculator() {
 							</span>
 							<span
 								className="btn"
-								onClick={() => opartorHandler(" + ")}
+								onClick={() => opartorHandler(" - ")}
 							>
-								+
+								-
 							</span>
 						</div>
 						<div className="row">
@@ -147,20 +199,20 @@ function Calculator() {
 							</span>
 							<span
 								className="btn"
-								onClick={() => typeHandler("00")}
-							>
-								00
-							</span>
-							<span
-								className="btn"
 								onClick={() => typeHandler(".")}
 							>
 								{" "}
 								.{" "}
-							</span>
+							</span>{" "}
 							<span className="btn" onClick={handleSubmit}>
 								{" "}
 								={" "}
+							</span>
+							<span
+								className="btn"
+								onClick={() => typeHandler(" + ")}
+							>
+								+
 							</span>
 						</div>
 					</div>
