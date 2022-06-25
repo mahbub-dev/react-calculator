@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mahbub-dev/react-calculator.git/static/css/main.2d550fa5.css",
-    "main.js": "/mahbub-dev/react-calculator.git/static/js/main.32b475b1.js",
-    "static/js/787.a174f9e5.chunk.js": "/mahbub-dev/react-calculator.git/static/js/787.a174f9e5.chunk.js",
-    "index.html": "/mahbub-dev/react-calculator.git/index.html",
-    "main.2d550fa5.css.map": "/mahbub-dev/react-calculator.git/static/css/main.2d550fa5.css.map",
-    "main.32b475b1.js.map": "/mahbub-dev/react-calculator.git/static/js/main.32b475b1.js.map",
-    "787.a174f9e5.chunk.js.map": "/mahbub-dev/react-calculator.git/static/js/787.a174f9e5.chunk.js.map"
+    "main.css": "/mahbub-dev/react-calculator/static/css/main.2d550fa5.css",
+    "main.js": "/mahbub-dev/react-calculator/static/js/main.2982a71f.js",
+    "static/js/787.a174f9e5.chunk.js": "/mahbub-dev/react-calculator/static/js/787.a174f9e5.chunk.js",
+    "index.html": "/mahbub-dev/react-calculator/index.html",
+    "main.2d550fa5.css.map": "/mahbub-dev/react-calculator/static/css/main.2d550fa5.css.map",
+    "main.2982a71f.js.map": "/mahbub-dev/react-calculator/static/js/main.2982a71f.js.map",
+    "787.a174f9e5.chunk.js.map": "/mahbub-dev/react-calculator/static/js/787.a174f9e5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2d550fa5.css",
-    "static/js/main.32b475b1.js"
+    "static/js/main.2982a71f.js"
   ]
 }
