@@ -33,7 +33,7 @@ body{
 .display .counter {
 	position: absolute;
     font-size: 14px;
-    top: 0;
+    top: 5px;
     left: 10px;
 }
 .display .result {

@@ -9,29 +9,12 @@ function Calculator() {
 	const [oparend, setOparend] = useState("");
 	const [resultIndex, setResultIndex] = useState(result.length);
 	const [render, setRender] = useState(false);
-	const Bismillah = new Audio(
-		"https://www.truemuslims.net/Quran/Bangla/001.mp3"
-	);
-
-	//   // variable to play audio in loop
-	//   const [playInLoop, setPlayInLoop] = useState(false);
-
-	//   // load audio file on component load
-	//   useEffect(() => {
-	//    Bismillah.load();
-	//   }, [])
-
-	//   // set the loop of audio tune
-	//   useEffect(() => {
-	//     Bismillah.loop = playInLoop;
-	//   }, [playInLoop])
 	useEffect(() => {
 		setResult([...result, oparend.split("/")]);
 	}, [oprationCount]);
 	const typeHandler = (num) => {
 		setOparend(oparend.concat(num));
 		setRender(false);
-		Bismillah.play();
 	};
 	const opartorHandler = (optr) => {
 		setOparend(oparend.concat(optr));
