@@ -1,6 +1,8 @@
 /* eslint-disable no-eval */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import clickSound from "./sound.mp3";
+import {BsBackspaceFill,BsX} from 'react-icons/bs'
 import "./calculator.css";
 
 function Calculator() {
@@ -12,9 +14,15 @@ function Calculator() {
 	useEffect(() => {
 		setResult([...result, oparend.split("/")]);
 	}, [oprationCount]);
+	useEffect(() => {
+		const audio = new Audio(clickSound);
+		audio.play();
+	},[oparend,result,])
 	const typeHandler = (num) => {
+
 		setOparend(oparend.concat(num));
 		setRender(false);
+		oparend === "invalid format" && setOparend("");
 	};
 	const opartorHandler = (optr) => {
 		setOparend(oparend.concat(optr));
@@ -41,7 +49,7 @@ function Calculator() {
 			setOparend(eval(oparend).toString());
 		} catch (e) {
 			console.log(e);
-			setOparend("invalid format,click on C button");
+			setOparend("invalid format");
 		}
 	};
 	const backSpace = () => {
@@ -90,7 +98,7 @@ function Calculator() {
 								&#8594;
 							</span>
 							<span className="btn" onClick={backSpace}>
-								x
+								<BsBackspaceFill/>
 							</span>
 						</div>
 						<div className="row">
@@ -144,7 +152,7 @@ function Calculator() {
 								className="btn"
 								onClick={() => opartorHandler(" * ")}
 							>
-								*
+							<BsX/>
 							</span>
 						</div>
 						<div className="row">
