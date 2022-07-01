@@ -2,32 +2,48 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import clickSound from "./sound.mp3";
-import {BsBackspaceFill,BsX} from 'react-icons/bs'
+import { BsBackspaceFill, BsX } from "react-icons/bs";
 import "./calculator.css";
 
 function Calculator() {
 	const [oprationCount, setOparationCount] = useState(0);
 	const [result, setResult] = useState([]);
-	const [oparend, setOparend] = useState("");
+	// const [data, setData] = useState([]);
+	const [oparator, setOparator] = useState("");
+	const [prevOparend, setPrevOparend] = useState("");
+	const [currentOparend, setCurrentOparend] = useState("");
 	const [resultIndex, setResultIndex] = useState(result.length);
 	const [render, setRender] = useState(false);
 	useEffect(() => {
-		setResult([...result, oparend.split("/")]);
+		setResult([...result, prevOparend.toString().split("/")]);
 	}, [oprationCount]);
 	useEffect(() => {
 		const audio = new Audio(clickSound);
 		audio.play();
-	},[oparend,result,])
+	}, [result]);
+	// useEffect(() => {
+	// 	setData([prevOparend.trim(), oparator.trim(), currentOparend.trim()]);
+	// }, [oparator, prevOparend, currentOparend]);
 	const typeHandler = (num) => {
-
-		setOparend(oparend.concat(num));
+		oparator
+			? setCurrentOparend((p) => p.toString().concat(num))
+			: setPrevOparend((p) => p.toString().concat(num));
 		setRender(false);
-		oparend === "invalid format" && setOparend("");
+
+		// oparend === "invalid format" && setOparend("");
 	};
 	const opartorHandler = (optr) => {
-		setOparend(oparend.concat(optr));
+		setOparator(optr);
+
+		if (currentOparend) {
+			setPrevOparend(eval(`${prevOparend}${oparator}${currentOparend}`));
+			setCurrentOparend("");
+			setResultIndex(result.length);
+			setOparationCount((prev) => prev + 1);
+		}
 		setRender(false);
 	};
+	// console.log(prevOparend);
 	const storedResult = (direction) => {
 		if (direction === "l") {
 			if (resultIndex > 1) {
@@ -44,23 +60,36 @@ function Calculator() {
 	const handleSubmit = () => {
 		setOparationCount((prev) => prev + 1);
 		setResultIndex(result.length);
+		setOparator("");
 
 		try {
-			setOparend(eval(oparend).toString());
+			setPrevOparend(eval(`${prevOparend}${oparator}${currentOparend}`));
+			setCurrentOparend("");
 		} catch (e) {
 			console.log(e);
-			setOparend("invalid format");
 		}
 	};
 	const backSpace = () => {
-		setOparend(oparend.slice(0, -1));
+		// setData((p) => p.toString().replace(/,/~g, ""));
+		if (currentOparend) {
+			setCurrentOparend(currentOparend.slice(0, -1));
+		} else if (oparator) {
+			setOparator(oparator.trim().slice(0, -1));
+		} else {
+			setPrevOparend((p) => p.toString().slice(0, -1));
+		}
 	};
+	// console.log(data.toString());
 	const clear = () => {
-		setOparend("");
+		setCurrentOparend("");
+		setPrevOparend("");
+		setOparator("");
+		setResult("");
+		// setOparend("");
 		setResultIndex(0);
 		setResult([""]);
 	};
-	console.log(result);
+	// console.log(result);
 	return (
 		<div className="container">
 			<div className="inner-container">
@@ -70,7 +99,11 @@ function Calculator() {
 						{render ? (
 							<div className="result">{result[resultIndex]}</div>
 						) : (
-							<div className="result">{oparend}</div>
+							<div className="result">
+								{prevOparend}
+								{oparator !== "" && oparator}
+								{currentOparend}
+							</div>
 						)}
 					</div>
 				</div>
@@ -98,7 +131,7 @@ function Calculator() {
 								&#8594;
 							</span>
 							<span className="btn" onClick={backSpace}>
-								<BsBackspaceFill/>
+								<BsBackspaceFill />
 							</span>
 						</div>
 						<div className="row">
@@ -152,7 +185,7 @@ function Calculator() {
 								className="btn"
 								onClick={() => opartorHandler(" * ")}
 							>
-							<BsX/>
+								<BsX />
 							</span>
 						</div>
 						<div className="row">
@@ -201,7 +234,7 @@ function Calculator() {
 							</span>
 							<span
 								className="btn"
-								onClick={() => typeHandler(" + ")}
+								onClick={() => opartorHandler(" + ")}
 							>
 								+
 							</span>
