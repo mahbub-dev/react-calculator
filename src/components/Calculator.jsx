@@ -8,7 +8,6 @@ import "./calculator.css";
 function Calculator() {
 	const [oprationCount, setOparationCount] = useState(0);
 	const [result, setResult] = useState([]);
-	// const [data, setData] = useState([]);
 	const [oparator, setOparator] = useState("");
 	const [prevOparend, setPrevOparend] = useState("");
 	const [currentOparend, setCurrentOparend] = useState("");
@@ -21,16 +20,11 @@ function Calculator() {
 		const audio = new Audio(clickSound);
 		audio.play();
 	}, [result]);
-	// useEffect(() => {
-	// 	setData([prevOparend.trim(), oparator.trim(), currentOparend.trim()]);
-	// }, [oparator, prevOparend, currentOparend]);
 	const typeHandler = (num) => {
 		oparator
 			? setCurrentOparend((p) => p.toString().concat(num))
 			: setPrevOparend((p) => p.toString().concat(num));
 		setRender(false);
-
-		// oparend === "invalid format" && setOparend("");
 	};
 	const opartorHandler = (optr) => {
 		setOparator(optr);
@@ -43,7 +37,6 @@ function Calculator() {
 		}
 		setRender(false);
 	};
-	// console.log(prevOparend);
 	const storedResult = (direction) => {
 		if (direction === "l") {
 			if (resultIndex > 1) {
@@ -70,7 +63,6 @@ function Calculator() {
 		}
 	};
 	const backSpace = () => {
-		// setData((p) => p.toString().replace(/,/~g, ""));
 		if (currentOparend) {
 			setCurrentOparend(currentOparend.slice(0, -1));
 		} else if (oparator) {
@@ -79,7 +71,6 @@ function Calculator() {
 			setPrevOparend((p) => p.toString().slice(0, -1));
 		}
 	};
-	// console.log(data.toString());
 	const clear = () => {
 		setCurrentOparend("");
 		setPrevOparend("");
@@ -89,13 +80,11 @@ function Calculator() {
 		setResultIndex(0);
 		setResult([""]);
 	};
-	// console.log(result);
 	return (
 		<div className="container">
 			<div className="inner-container">
 				<div className="display">
 					<div className="data">
-						<div className="counter">{resultIndex}</div>
 						{render ? (
 							<div className="result">{result[resultIndex]}</div>
 						) : (
